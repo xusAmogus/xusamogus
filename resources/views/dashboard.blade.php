@@ -11,7 +11,8 @@
                 @can('view schedule')
                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showDropZone()">upload excel bestand</button>
                    
-                   <livewire:schedule-table model="App\Schedule"/>
+                   <livewire:datatable model="App\Models\Schedule" name="schedule" />
+                   
                 @endcan
             </div>
             
