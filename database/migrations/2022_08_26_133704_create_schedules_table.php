@@ -18,6 +18,10 @@ return new class extends Migration
             $table->date('datum')->nullable();
             $table->text('filmtitel')->nullable();
             $table->text('zaalwacht')->nullable();
+            $table->time('start')->nullable();
+            $table->time('end')->nullable();
+            $table->text('year')->nullable();
+            $table->text('week')->nullable();
             $table->timestamps();
         });
     }

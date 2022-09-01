@@ -8,10 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     use HasFactory;
-    protected $fillable = ['datum','filmtitel','zaalwacht'];
+    protected $fillable = ['datum','filmtitel','zaalwacht','start','eind','year','week'];
 
-    public function getDayAttribute()
-    {
-        return $this->attributes['datum']->format('Y-m-d');
-    }
+   
 }
