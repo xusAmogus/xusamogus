@@ -18,7 +18,7 @@ class ScheduleTable extends LivewireDatatable
     {
         return [
             NumberColumn::name('id')->label('ID')->sortBy('id'),   
-            DateColumn::name('datum')->label('Datum:'),   
+            DateColumn::name('datum')->label('Datum:')->sortable(),   
             Column::name('filmtitel')->label('Film Titel:'),   
             Column::name('zaalwacht')->label('Zaalwacht:'),
             Column::name('start')->label('Aanvang voorstelling:'),

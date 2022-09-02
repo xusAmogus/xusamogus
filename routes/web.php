@@ -33,6 +33,7 @@ Route::middleware([
     })->name('dashboard');
     Route::post('/image/upload/store', function (Request $request) {
         $file = $request->file('file');        
+        //$imported  = Excel::import(new ImportSchedule,$file);
         //Log::info(print_r($imported, true));
         $arr = Excel::toArray(new ImportSchedule,$file);
         // arr[0] = sheet 1, arr[1] = sheet2, arr[2] = sheet3
@@ -45,6 +46,7 @@ Route::middleware([
                 //replace this with a user search option
                 if($row[8] === "Kora Lamerichhs") {
                     //take excel date string eg 44108 and turn into datetime object, then into carbon object and format to display day of week
+                    //$date = Carbon::instance(ExcelDate::excelToDateTimeObject($row[1]))->format('l jS \of F Y A');
                     $date = Carbon::instance(ExcelDate::excelToDateTimeObject($row[1]));
                     $start = Carbon::instance(ExcelDate::excelToDateTimeObject($row[3]));
                     $end = Carbon::instance(ExcelDate::excelToDateTimeObject($row[6]));
