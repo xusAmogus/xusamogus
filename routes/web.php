@@ -33,23 +33,18 @@ Route::middleware([
     })->name('dashboard');
     Route::post('/image/upload/store', function (Request $request) {
         $file = $request->file('file');        
-        //$imported  = Excel::import(new ImportSchedule,$file);
         //Log::info(print_r($imported, true));
         $arr = Excel::toArray(new ImportSchedule,$file);
-        //Log::info(print_r($arr, true));
         // arr[0] = sheet 1, arr[1] = sheet2, arr[2] = sheet3
+        //$arr[0][1][7] and [8] is jaar en weeknummer
         $year = $arr[0][1][7];
-        $week = $arr[0][1][8];
-        //Log::info($week);
+        $week = $arr[0][1][8];       
         if(!Schedule::where('week', '=', $week)->exists()){
             foreach($arr[0] as $row) {
                 //1 date,5 title,8 zaalwacht
                 //replace this with a user search option
                 if($row[8] === "Kora Lamerichhs") {
                     //take excel date string eg 44108 and turn into datetime object, then into carbon object and format to display day of week
-                    //$date = Carbon::instance(ExcelDate::excelToDateTimeObject($row[1]))->format('l jS \of F Y A');
-                    //[0][1][7] and [8] is jaar en weeknummer
-                    
                     $date = Carbon::instance(ExcelDate::excelToDateTimeObject($row[1]));
                     $start = Carbon::instance(ExcelDate::excelToDateTimeObject($row[3]));
                     $end = Carbon::instance(ExcelDate::excelToDateTimeObject($row[6]));
