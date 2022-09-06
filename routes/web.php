@@ -41,32 +41,38 @@ Route::middleware([
         $year = $arr[0][1][7];
         $week = $arr[0][1][8];       
         if(!Schedule::where('week', '=', $week)->exists()){
-            foreach($arr[0] as $row) {
-                //1 date,5 title,8 zaalwacht
-                //replace this with a user search option
-                if($row[8] === "Kora Lamerichhs") {
-                    //take excel date string eg 44108 and turn into datetime object, then into carbon object and format to display day of week
-                    //$date = Carbon::instance(ExcelDate::excelToDateTimeObject($row[1]))->format('l jS \of F Y A');
+            Log:info(print_r($arr[0], true));
+            foreach($arr[0] as $key => $row) {
+                Log::info(print_r(gettype($row[1]),true));
+                //1 date,5 title,8 zaalwacht                
+                //take excel date string eg 44108 and turn into datetime object, then into carbon object and format to display day of week
+                //$date = Carbon::instance(ExcelDate::excelToDateTimeObject($row[1]))->format('l jS \of F Y A');
+                if((is_double($row[1]) || is_int($row[1])) && is_double($row[3]) && is_double($row[6])) {
+                    //if a movie has no zaalwacht name, take the name from the previous row
+                    if(empty($row[8])){
+                        $zaalwacht =$arr[0][$key-1][8];                       
+                    }
                     $date = Carbon::instance(ExcelDate::excelToDateTimeObject($row[1]));
+                    // Log::info(print_r($date,true));
                     $start = Carbon::instance(ExcelDate::excelToDateTimeObject($row[3]));
                     $end = Carbon::instance(ExcelDate::excelToDateTimeObject($row[6]));
                     $schedule = new Schedule();
                     $schedule->datum = $date;
-                    $schedule->zaalwacht = $row[8];
+                    $schedule->zaalwacht = empty($row[8]) ? $zaalwacht : $row[8];
                     $schedule->filmtitel = $row[5];
                     $schedule->start = $start;
                     $schedule->end = $end;
                     $schedule->year = $year;
                     $schedule->week = $week;
-                    $schedule->save();
-                    $msg = 'movies stored in db.';                    
-                }            
+                    $schedule->save();                    
+                    // $msg = 'movies stored in db.';
+                }
+               
             }
         }
 	    return response()->json([
             'success'=>'file has been imported',
             'msg' => $msg ?? 'no errors'
         ]);
-
     });
 });
