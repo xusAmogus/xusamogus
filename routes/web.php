@@ -8,6 +8,7 @@ use App\Models\Schedule;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 use Carbon\Carbon;
+use App\Http\Livewire\Permissions;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,9 +29,13 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/permissions', function () {
+        return view('permissions');
+    })->name('permissions');
     Route::post('/image/upload/store', function (Request $request) {
         $file = $request->file('file');        
         //$imported  = Excel::import(new ImportSchedule,$file);

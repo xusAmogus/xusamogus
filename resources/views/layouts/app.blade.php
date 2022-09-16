@@ -19,8 +19,7 @@
         @livewireStyles
     </head>
     <body class="font-pinstripe antialiased">
-        <x-jet-banner />
-
+        
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
 
@@ -34,9 +33,15 @@
             @endif
 
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            @if (isset($main))
+                <main class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $main }}
+                    </div>
+                </main>
+            @endif
+            {{ $slot }}
+            
         </div>
 
         @stack('modals')

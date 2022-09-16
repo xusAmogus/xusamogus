@@ -22,7 +22,8 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
         Telescope::filter(function (IncomingEntry $entry) {
             if ($this->app->environment('local')) {
-                return true;
+                $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+                $this->app->register(TelescopeServiceProvider::class);
             }
 
             return $entry->isReportableException() ||
@@ -64,7 +65,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     {
         Gate::define('viewTelescope', function ($user) {
             return in_array($user->email, [
-                //
+                'martijnvanderbruggen@live.nl',
             ]);
         });
     }
