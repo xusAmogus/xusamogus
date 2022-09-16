@@ -53,8 +53,10 @@
                     <div class="grid grid-cols-1 md:grid-cols-2">                        
                         <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
                             <div class="flex items-center justify-center">
-                                <div class="font-fatface h-200 w-auto mt-2 text-gray-600 dark:text-gray-400">
-                                    <h3 class="text-center text-4xl font-fatface">BLOG</h3>
+                                <div class="font-fatface h-100 w-auto mt-2 text-gray-600 dark:text-gray-400">
+                                    <h3 class="text-center text-4xl font-fatface">
+                                        @livewire('button',['buttonText' => 'Blog'])
+                                    </h3>
                                 </div>
                             </div>
                         </div>
