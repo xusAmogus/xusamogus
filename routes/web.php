@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
 use Carbon\Carbon;
 use App\Http\Livewire\Permissions;
+use App\Models\Blog;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,13 @@ use App\Http\Livewire\Permissions;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('blog', function() {
+    $blogs = Blog::all();
+    return view('blog/index',[
+        'blogs' => $blogs
+    ]);
 });
 
 Route::middleware([
@@ -81,3 +89,4 @@ Route::middleware([
         ]);
     });
 });
+
