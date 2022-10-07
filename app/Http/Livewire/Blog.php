@@ -11,10 +11,11 @@ class Blog extends Component
     public $blogs;
     public $blog;
     public $searchTerm;
-        
+
     protected $listeners = [
         'search' => 'searchBlogs',
-        'toggle' => 'toggle'
+        'toggle' => 'toggle',
+        'deleteBlog' => 'deleteBlog'
     ];
 
     public function mount(BlogModel $blog)
@@ -39,6 +40,10 @@ class Blog extends Component
         $this->open = true;
     }
 
+    public function deleteBlog(BlogModel $blog)
+    {
+        $blog->delete();
+    }
     // public function render()
     // {      
     //     return view('livewire.blog',[
